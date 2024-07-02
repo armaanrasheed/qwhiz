@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../styling/LandingPage.css';
 
 function App() {
@@ -6,8 +7,18 @@ function App() {
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
-    console.log(searchInput);
   };
+
+  const handleSchoolSearchButton = (event) =>{
+    axios.get('http://localhost:3000/users')
+    .then(res => {
+      const users = res.data;
+      console.log(users);
+    })
+    
+  }
+
+
 
   return (
     <>
@@ -22,6 +33,8 @@ function App() {
           value={searchInput}
           onChange={handleSearchInputChange}
         />
+        <button className = "schoolSearchButton"
+        onClick={handleSchoolSearchButton}>Search</button>
       </div>
     </>
   );

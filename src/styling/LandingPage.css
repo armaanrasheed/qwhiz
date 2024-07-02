@@ -32,5 +32,12 @@
     border-radius: 20px;
     border-color: gainsboro;
     border-style:solid;
+    text-align: left;
+    padding-left: 1vw;
     
+  }
+
+  .schoolSearchButton{
+    height: 2vh;
+    width: fit-content;
   }
