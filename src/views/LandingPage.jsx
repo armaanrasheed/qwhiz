@@ -10,13 +10,8 @@ function App() {
   };
 
   const handleSchoolSearchButton = (event) =>{
-    axios.get('http://localhost:3000/users')
-    .then(res => {
-      const users = res.data;
-      console.log(users);
-    })
     
-  }
+  };
 
 
 
