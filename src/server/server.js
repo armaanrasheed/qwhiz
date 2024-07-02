@@ -1,6 +1,9 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import { UserController } from '../controllers/UserController.js';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
