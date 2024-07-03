@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styling/LandingPage.css';
 
-function App() {
+
+function LandingPage() {
   const [searchInput, setSearchInput] = useState('');
+  const [searchResult, setSearchResult] = useState(null); // Changed to null for conditional rendering
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
 
-  const handleSchoolSearchButton = (event) =>{
-    axios.get('http://localhost:3000/users')
-    .then(res => {
-      const users = res.data;
-      console.log(users);
-    })
+  const handleSchoolSearchButton = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/users'); // Assuming you want to search all users
+        const userData = res.data;
+        setSearchResult(userData); // Set the entire array of user data
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     
-  }
-
-
+  };
 
   return (
     <>
@@ -33,11 +35,20 @@ function App() {
           value={searchInput}
           onChange={handleSearchInputChange}
         />
-        <button className = "schoolSearchButton"
-        onClick={handleSchoolSearchButton}>Search</button>
+        <button className="schoolSearchButton" onClick={handleSchoolSearchButton}>
+          Search
+        </button>
+        {searchInput && searchResult && searchResult.map((user) => (
+          <div key={user.id} className="userCard">
+            <p>Name: {user.username}</p>
+            <p>Email: {user.email}</p>
+            <p>Date of Birth: {new Date(user.dob).toLocaleDateString()}</p>
+            <p>Created At: {new Date(user.createdAt).toLocaleString()}</p>
+          </div>
+        ))}
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default LandingPage;

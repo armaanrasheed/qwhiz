@@ -16,3 +16,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model School {
+  id        Int     @id @default(autoincrement())
+  logourl   String  @db.VarChar(255) // Store the URL path to the AWS S3 location
+  schoolname String  @db.VarChar(255) // Name of the school
+  location  String  @db.VarChar(255) // Location of the school
+}
