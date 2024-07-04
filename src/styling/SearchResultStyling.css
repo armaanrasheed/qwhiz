@@ -1,0 +1,21 @@
+
+
+.results-section{
+    margin-left:22.5%;
+    margin-right: 50%;
+  
+}
+.search-result-display-frame{
+    outline:none;
+    background-color: white;
+    color: black;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
+    width: 40vw;
+    text-align: center;
+    border-radius: 20px;
+    border-color: gainsboro;
+    border-style:solid;
+    text-align: left;
+    padding-left: 1vw;
+}

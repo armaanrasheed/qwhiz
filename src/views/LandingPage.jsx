@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styling/LandingPage.css';
-
+import SearchResultDisplay from './SearchResultDisplay';
 
 function LandingPage() {
   const [searchInput, setSearchInput] = useState('');
-  const [searchResult, setSearchResult] = useState(null); // Changed to null for conditional rendering
+  const [searchResult, setSearchResult] = useState(null); // State to store search results
+  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
 
-  const handleSearchInputChange = (event) => {
+  const handleSearchInputChange = async(event) => {
     setSearchInput(event.target.value);
-  };
 
-  const handleSchoolSearchButton = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/users'); // Assuming you want to search all users
-        const userData = res.data;
-        setSearchResult(userData); // Set the entire array of user data
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    
+    try {
+      const res = await axios.get('http://localhost:3000/schoolResult', {
+        params: {
+          searchValue: searchInput.toLocaleLowerCase()
+        }
+      });
+      const schoolData = res.data;
+      setSearchResult(schoolData);
+      console.log(schoolData);
+      setIsButtonClicked(true);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   return (
@@ -35,20 +39,22 @@ function LandingPage() {
           value={searchInput}
           onChange={handleSearchInputChange}
         />
-        <button className="schoolSearchButton" onClick={handleSchoolSearchButton}>
-          Search
-        </button>
-        {searchInput && searchResult && searchResult.map((user) => (
-          <div key={user.id} className="userCard">
-            <p>Name: {user.username}</p>
-            <p>Email: {user.email}</p>
-            <p>Date of Birth: {new Date(user.dob).toLocaleDateString()}</p>
-            <p>Created At: {new Date(user.createdAt).toLocaleString()}</p>
-          </div>
-        ))}
       </div>
+      <SearchResultDisplay></SearchResultDisplay>
+
+
+      {/* Conditional rendering based on isButtonClicked state */}
+      {searchResult && (searchInput != '') && (
+        <div className='searchResult'>
+          {searchResult.map((school, index) => (
+            <div key={index} className='school'>
+              {school.schoolname}
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
-};
+}
 
 export default LandingPage;

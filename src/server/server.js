@@ -5,6 +5,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors'; // Importing cors properly
 import { UserController } from '../controllers/UserController.js';
+import { SchoolController } from '../controllers/SchoolController.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,14 +19,19 @@ app.use(cors({
 app.use(bodyParser.json());
 
 const userController = new UserController();
+const schoolController = new SchoolController();
 
 // Simple route for testing
 app.get('/', (req, res) => {
   res.send('API is working!');
 });
 
-// Route to get all users
+//users API routes
 app.get('/users', (req, res) => userController.getAll(req, res));
+
+//school API routes
+app.get('/school',(req,res) => schoolController.getAll(req,res));
+app.get('/schoolResult',(req,res) => schoolController.getRequestedSchool(req,res));
 
 // Start the server
 app.listen(port, () => {
