@@ -5,10 +5,9 @@ import SearchResultDisplay from './SearchResultDisplay';
 
 function LandingPage() {
   const [searchInput, setSearchInput] = useState('');
-  const [searchResult, setSearchResult] = useState(null); // State to store search results
-  const [isButtonClicked, setIsButtonClicked] = useState(false); // State to track button click
+  const [searchResult, setSearchResult] = useState([]); // State to store search results
 
-  const handleSearchInputChange = async(event) => {
+  const handleSearchInputChange = async (event) => {
     setSearchInput(event.target.value);
 
     try {
@@ -20,7 +19,6 @@ function LandingPage() {
       const schoolData = res.data;
       setSearchResult(schoolData);
       console.log(schoolData);
-      setIsButtonClicked(true);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -40,19 +38,7 @@ function LandingPage() {
           onChange={handleSearchInputChange}
         />
       </div>
-      <SearchResultDisplay></SearchResultDisplay>
-
-
-      {/* Conditional rendering based on isButtonClicked state */}
-      {searchResult && (searchInput != '') && (
-        <div className='searchResult'>
-          {searchResult.map((school, index) => (
-            <div key={index} className='school'>
-              {school.schoolname}
-            </div>
-          ))}
-        </div>
-      )}
+      {searchInput != '' && <SearchResultDisplay results={searchResult} />}
     </>
   );
 }

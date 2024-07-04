@@ -30,8 +30,9 @@ app.get('/', (req, res) => {
 app.get('/users', (req, res) => userController.getAll(req, res));
 
 //school API routes
-app.get('/school',(req,res) => schoolController.getAll(req,res));
-app.get('/schoolResult',(req,res) => schoolController.getRequestedSchool(req,res));
+app.get('/school', (req, res) => schoolController.getAll(req, res));
+app.get('/schoolResult', (req, res) => schoolController.getRequestedSchool(req, res));
+app.get('/school/:schoolname', (req, res) => schoolController.getSchoolByName(req, res));
 
 // Start the server
 app.listen(port, () => {

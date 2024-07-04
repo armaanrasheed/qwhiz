@@ -11,8 +11,19 @@ export class SchoolRepository {
     return await prisma.school.findMany({
       where: {
         schoolname: {
-          contains: schoolName, // Use 'contains' for partial matches
+          contains: schoolName,
           mode: 'insensitive',  // Case insensitive search
+        },
+      },
+    });
+  }
+
+  async findSchoolByName(schoolName) {
+    return await prisma.school.findFirst({
+      where: {
+        schoolname: {
+          equals: schoolName,
+          mode: 'insensitive',
         },
       },
     });
