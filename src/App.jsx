@@ -7,6 +7,11 @@ import LandingPage from './views/LandingPage.jsx'
 import UniversityCourses from './views/UniversityCourses.jsx'
 
 function App() {
+
+  const handleUniversityPageProps = async(event)=>{
+    
+  }
+  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -14,7 +19,7 @@ function App() {
     },
     {
       path: "/university-page/:id",
-      element: <UniversityCourses />
+      element: <UniversityCourses universityName={'University of Waterloo'} departments={'ECE'}/>
     },
 
   ])
